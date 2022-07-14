@@ -12,7 +12,7 @@ const deleteHandler=(id)=>{
 
     }
 }
-const Accordion = ({_id,title,category,content}) => {
+const Accordion = ({_id,title,category,content,createdAt}) => {
     const [isActive,setActive]=useState(false)
   return (
     <Card onClick={()=>setActive(!isActive)}>
@@ -26,7 +26,7 @@ const Accordion = ({_id,title,category,content}) => {
             fontSize:18
           }}>{title}</span>
           <div>
-            <Button><Link to={`note/${_id}`}>Edit</Link></Button>
+            <Button><Link to={`/note/${_id}`}>Edit</Link></Button>
             <Button variant='danger' className="mx-2" onClick={()=>deleteHandler(_id)}>Delete</Button>
           </div>
           </Card.Header>
@@ -42,7 +42,10 @@ const Accordion = ({_id,title,category,content}) => {
             {content}
           </p>
           <footer className="blockquote-footer">
-            Created on 
+            Created on{" "} 
+            <cite title='Source Title'>
+                {createdAt.substring(0,10)}
+            </cite>
           </footer>
         </blockquote>
       </Card.Body>

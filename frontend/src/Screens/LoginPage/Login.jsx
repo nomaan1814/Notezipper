@@ -30,7 +30,6 @@ const Login = () => {
         e.preventDefault();
         dispatch(login(email,password))
     }
-    'https://github.com/nomaan1814/Notezipper.git'
   return (
     <MainScreen title='Login'>
     <div className="loginContainer">

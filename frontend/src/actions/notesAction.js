@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NOTES_CREATE_FAIL, NOTES_CREATE_REQUEST, NOTES_CREATE_SUCCESS, NOTES_LIST_FAIL, NOTES_LIST_REQUEST, NOTES_LIST_SUCCESS, NOTES_UPDATE_FAIL, NOTES_UPDATE_REQUEST, NOTES_UPDATE_SUCCESS } from "../constants/notesConstants";
+import { NOTES_CREATE_FAIL, NOTES_CREATE_REQUEST, NOTES_CREATE_SUCCESS, NOTES_DELETE_FAIL, NOTES_DELETE_REQUEST, NOTES_DELETE_SUCCESS, NOTES_LIST_FAIL, NOTES_LIST_REQUEST, NOTES_LIST_SUCCESS, NOTES_UPDATE_FAIL, NOTES_UPDATE_REQUEST, NOTES_UPDATE_SUCCESS } from "../constants/notesConstants";
 export const listNotes=()=>async(dispatch,getState)=>{
      try {
         dispatch({
@@ -73,4 +73,29 @@ export const createNotes=(title,content,category)=>async(dispatch,getState)=>{
         payload:message
        })
     }
+}
+export const deleteNotes=(id)=>async(dispatch,getState)=>{
+    try {
+        dispatch({
+            type:NOTES_DELETE_REQUEST
+        })
+        const {userLogin:{userDet}}=getState();
+        const config={
+            headers:{
+                "Content-type":"application/json",
+                Authorization:`Bearer ${userDet.token}`
+            }
+        }
+        const {data}=await axios.delete(`/api/notes/${id}`,config);
+        dispatch({
+            type:NOTES_DELETE_SUCCESS,
+            payload:data
+        })    
+     } catch (error) {
+        const message=error.response && error.response.data.message ? error.response.data.message:error.message
+        dispatch({
+         type:NOTES_DELETE_FAIL,
+         payload:message
+        })
+     }
 }

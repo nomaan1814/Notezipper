@@ -5,15 +5,18 @@ import Row from 'react-bootstrap/esm/Row';
 import './Landingpage.css';
 import {Link, useNavigate} from 'react-router-dom';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 const LandingPage = () => {
-//   const navigate=useNavigate();
-//   useEffect(()=>{
-//     const user=localStorage.getItem("userdet")
-//     if(user){
-//         navigate('/mynotes');
-//     }
-// },[navigate])
+  const navigate=useNavigate();
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userDet } = userLogin;
+
+  useEffect(() => {
+    if (userDet) {
+      navigate("/mynotes");
+    }
+  }, [navigate, userDet]);
   return (
     <div className='main'>
         <Container>

@@ -8,11 +8,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../actions/userActions';
 
-const Header = () => {
+const Header = ({setSearch}) => {
   const nav=useNavigate();
   const dispatch=useDispatch();
-  // const userLogin=useSelector(state=>state.userLogin)
-  // const {userDet}=userLogin;
+  const userLogin=useSelector(state=>state.userLogin)
+  const {userDet}=userLogin;
   const logoutHandler=()=>{
     dispatch(logout());
     nav('/');
@@ -30,19 +30,25 @@ const Header = () => {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={(e)=>setSearch(e.target.value)}
             />
             </Form>
         </Nav>
         <Nav>
+        {userDet?
+        <>
           <Nav.Link>
             <Link to="/mynotes">
             My Notes</Link></Nav.Link>
-          <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
+          <NavDropdown title={userDet.name} id="basic-nav-dropdown">
+            <NavDropdown.Item><Link to='/profile'>My Profile</Link></NavDropdown.Item>
             <NavDropdown.Item onClick={()=>logoutHandler()}>
               Logout
             </NavDropdown.Item>
-          </NavDropdown>
+          </NavDropdown></>
+          : (
+              <Nav.Link><Link to='/login'>Login</Link></Nav.Link>
+            )}
         </Nav>
       </Navbar.Collapse>
     </Container>

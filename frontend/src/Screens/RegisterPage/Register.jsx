@@ -39,6 +39,7 @@ const Register = () => {
         else{
           setmessage(null);
            dispatch(register(name,email,password,pic))
+           navigate("/")
         }
   }
   // const postDetails=(pics)=>{

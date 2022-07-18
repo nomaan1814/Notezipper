@@ -8,10 +8,12 @@ const connectDb=require('./database/db');
 const userRoutes=require('./routes/userRoutes');
 const { notfound, errorHandler } = require('./middlewares/errorMiddleware');
 const noteRoutes=require('./routes/notesRoute');
+
 connectDb();
 app.use(express.json())
 app.use(cors());
 const PORT=process.env.PORT || 5000;
+
 // var corsOptions = {
 //     origin: 'http://localhost:3000',
 //     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204

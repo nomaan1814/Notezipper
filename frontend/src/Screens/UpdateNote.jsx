@@ -12,6 +12,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/esm/Button';
 import Loading from '../components/Loading';
 import axios from 'axios';
+import { deleteNotes } from "../actions/notesAction";
 
 
 
@@ -44,6 +45,14 @@ const UpdateNote = () => {
     resetHandler();
     navigate("/mynotes");
   };
+  const noteDelete=useSelector(state=>state.noteDelete);
+const {loading:deleteLoading,error:deleteError,success:deleteSuccess}=noteDelete;
+const deleteHandler=(id)=>{
+    if(window.confirm('Are you sure to delete')){
+        dispatch(deleteNotes(id))
+        navigate('/mynotes')
+    }
+}
 
   useEffect(() => {
     const fetching = async () => {
@@ -110,7 +119,7 @@ const UpdateNote = () => {
             <Button type="submit" variant="primary" className='my-2'>
               Update Note
             </Button>
-            <Button type="submit" variant="danger" className='my-2 mx-2'>
+            <Button type="submit" variant="danger" className='my-2 mx-2' onClick={()=>deleteHandler(param.id)}>
               Delete Note
             </Button>
           </Form>

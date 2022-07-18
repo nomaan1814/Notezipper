@@ -6,13 +6,10 @@ import notes from "../../data/Notes";
 import Badge from 'react-bootstrap/Badge'
 import { useEffect } from "react";
 import { useState } from "react";
+import { useSelector } from 'react-redux';
 
-const deleteHandler=(id)=>{
-    if(window.confirm('Are you sure to delete')){
 
-    }
-}
-const Accordion = ({_id,title,category,content,createdAt}) => {
+const Accordion = ({_id,title,category,content,createdAt,deleteHandler}) => {
     const [isActive,setActive]=useState(false)
   return (
     <Card onClick={()=>setActive(!isActive)}>
